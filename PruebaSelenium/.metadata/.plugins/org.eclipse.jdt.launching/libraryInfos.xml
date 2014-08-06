@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+<libraryInfo home="C:\eclipse\eclipse-juno-saludcasa\jre" version="1.6.0_43">
+<bootpath>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\resources.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\rt.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\sunrsasign.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\jsse.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\jce.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\charsets.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\modules\jdk.boot.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="C:\eclipse\eclipse-juno-saludcasa" version="1.6.0_43">
+<bootpath>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\resources.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\rt.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\sunrsasign.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\jsse.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\jce.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\charsets.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\modules\jdk.boot.jar"/>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\ext"/>
+<entry path="C:\Windows\Sun\Java\lib\ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="C:\eclipse\eclipse-juno-saludcasa\jre\lib\endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+</libraryInfos>

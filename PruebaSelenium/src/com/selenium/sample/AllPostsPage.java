@@ -1,9 +1,15 @@
 package com.selenium.sample;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
 
 public class AllPostsPage {
 	WebDriver driver;
@@ -13,6 +19,8 @@ public class AllPostsPage {
 	WebElement searchPosts;
 	@FindBy(how = How.ID, using = "cat")
 	WebElement viewByCategories;
+	@FindBy(how = How.LINK_TEXT, using = "Add New")
+	WebElement addNewPost;
 
 	public AllPostsPage(WebDriver driver) {
 		this.driver = driver;
@@ -20,9 +28,29 @@ public class AllPostsPage {
 	}
 
 	public void createANewPost(String title, String description) {
+		addNewPost.click();
+		AddNewPost newPost = PageFactory.initElements(driver, AddNewPost.class);
+		newPost.addNewPost(title, description);
 	}
 
-	public void editAPost(String title) {
+	public void editAPost(String newTitle, String description) {
+		List<WebElement> allPosts = postsContainer.findElements(By
+				.className("rowtitle"));
+		for (WebElement ele : allPosts) {
+			if (ele.getText().equals(description)) {
+
+				Actions builder = new Actions(driver);
+				builder.moveToElement(ele);
+				builder.click(driver.findElement(By.cssSelector(".edit>a")));
+				// Generate the composite action.
+				Action compositeAction = builder.build();
+				// Perform the composite action.
+				compositeAction.perform();
+				break;
+			}
+		}
+		EditPost editPost = PageFactory.initElements(driver, EditPost.class);
+		editPost.editPost(newTitle, description);
 	}
 
 	public void deleteAPost(String postTitle) {
