@@ -19,7 +19,7 @@ public class AdmRegistroPagina {
 	
 	public AdmRegistroPagina(WebDriver driver) {
 		this.driver = driver;
-		driver.get("url");		
+		driver.get("http://spainestudios.com/");		
 	}
 
 	public void login(String usuario, String contrasena) {
