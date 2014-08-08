@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Encuestas {
 	private WebDriver driver;
 	@FindBy(how = How.CSS, css = "a[href*='survey=job']")
-	private WebElement inicirEncuestaButton;
+	private WebElement iniciarEncuestaButton;
 
 	public Encuestas(WebDriver driver) {
 		this.driver = driver;
@@ -20,7 +20,7 @@ public class Encuestas {
 	}
 
 	public void verEncuestas() {
-		this.inicirEncuestaButton.click();
+		this.iniciarEncuestaButton.click();
 	}
 
 	public void iniciarEncuesta(String codigoEncuesta) {
@@ -37,8 +37,7 @@ public class Encuestas {
 		pasarPreguntas.click();
 		
 	    Pregunta pregunta = new Pregunta();
-	    pregunta.responder(driver, "q1", "2");
-   
+	    pregunta.responder(driver, "q1", "2");   
 	    pregunta.responder(driver, "q2", "2");
 	    pregunta.responder(driver, "q3", "2");
 	    pregunta.responder(driver, "q4", "2");

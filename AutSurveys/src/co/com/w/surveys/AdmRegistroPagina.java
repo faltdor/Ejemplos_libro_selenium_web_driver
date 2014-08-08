@@ -1,5 +1,14 @@
 package co.com.w.surveys;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.security.CodeSource;
+import java.util.Properties;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -7,26 +16,85 @@ import org.openqa.selenium.support.How;
 
 public class AdmRegistroPagina {
 	WebDriver driver;
-	@FindBy(how=How.NAME,name="login")
+	@FindBy(how = How.NAME, name = "login")
 	WebElement email;
-	@FindBy(how=How.NAME,name="password")
+	@FindBy(how = How.NAME, name = "password")
 	WebElement pass;
-	@FindBy(how=How.XPATH,xpath="//input[@value='Iniciar sesión']")
+	@FindBy(how = How.XPATH, xpath = "//input[@value='Iniciar sesión']")
 	WebElement submit;
-	@FindBy(how=How.LINK_TEXT,linkText="Iniciar sesión")
+	@FindBy(how = How.LINK_TEXT, linkText = "Iniciar sesión")
 	WebElement linkLogin;
-	
-	public AdmRegistroPagina(WebDriver driver) {
+
+	private String usuario;
+	private String contrasena;
+	private String url;
+
+	public AdmRegistroPagina(WebDriver driver) throws URISyntaxException, IOException {
 		this.driver = driver;
-		driver.get("http://spainestudios.com/");		
+		iniciarPropiedades();
+		driver.get(this.getUrl());
 	}
 
-	public void login(String usuario, String contrasena) {
+	private void iniciarPropiedades() throws URISyntaxException, IOException {
+		Properties prop = null;
+		try {
+			CodeSource codeSource = AdmRegistroPagina.class.getProtectionDomain()
+					.getCodeSource();
+
+			File jarFile = new File(codeSource.getLocation().toURI().getPath());
+			File jarDir = jarFile.getParentFile();
+
+			if (jarDir != null && jarDir.isDirectory()) {
+				File propFile = new File(jarDir.getParent(), "init.properties");
+				prop = new Properties();
+				prop.load(new BufferedReader(new FileReader(propFile
+						.getAbsoluteFile())));
+			}
+			this.setUsuario(prop.getProperty("usuario"));
+			this.setContrasena(prop.getProperty("contrasena"));
+			this.setUrl(prop.getProperty("url"));			
+			
+		} catch (URISyntaxException ex) {
+			ex.printStackTrace();
+			throw ex;
+		} catch (FileNotFoundException ex) {
+			System.err.println("No se encuentra el archivo: " + ex.getMessage());
+			throw ex;
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			throw ex;
+		}
+	}
+
+	public void login() {
 		linkLogin.click();
-		email.sendKeys(usuario);
-		pass.sendKeys(contrasena);
+		email.sendKeys(this.getUsuario());
+		pass.sendKeys(this.getContrasena());
 		submit.submit();
-		
+	}
+
+	private String getUsuario() {
+		return usuario;
+	}
+
+	private void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	private String getContrasena() {
+		return contrasena;
+	}
+
+	private void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
+	private String getUrl() {
+		return url;
+	}
+
+	private void setUrl(String url) {
+		this.url = url;
 	}
 
 }

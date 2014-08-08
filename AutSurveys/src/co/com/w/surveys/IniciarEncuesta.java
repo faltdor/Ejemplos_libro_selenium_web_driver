@@ -14,7 +14,7 @@ public class IniciarEncuesta {
 		WebDriver driver = new FirefoxDriver();
 		AdmRegistroPagina registroPagina = PageFactory.initElements(driver,
 				AdmRegistroPagina.class);
-		registroPagina.login("faltdor@gmail.com", "SpainStudy-$-813*");
+		registroPagina.login();
 
 		Encuestas encuestas = PageFactory.initElements(driver, Encuestas.class);
 		encuestas.verEncuestas();
