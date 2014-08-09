@@ -14,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
+import co.com.w.surveys.util.Utilidades;
+
 public class AdmRegistroPagina {
 	WebDriver driver;
 	@FindBy(how = How.NAME, name = "login")
@@ -29,7 +31,8 @@ public class AdmRegistroPagina {
 	private String contrasena;
 	private String url;
 
-	public AdmRegistroPagina(WebDriver driver) throws URISyntaxException, IOException {
+	public AdmRegistroPagina(WebDriver driver) throws URISyntaxException,
+			IOException {
 		this.driver = driver;
 		iniciarPropiedades();
 		driver.get(this.getUrl());
@@ -37,23 +40,15 @@ public class AdmRegistroPagina {
 
 	private void iniciarPropiedades() throws URISyntaxException, IOException {
 		Properties prop = null;
-		try {
-			CodeSource codeSource = AdmRegistroPagina.class.getProtectionDomain()
-					.getCodeSource();
+		try {			
+			File propFile = Utilidades.obtenerArchivo("init.properties");
+			prop = new Properties();
+			prop.load(new BufferedReader(new FileReader(propFile.getAbsoluteFile())));
 
-			File jarFile = new File(codeSource.getLocation().toURI().getPath());
-			File jarDir = jarFile.getParentFile();
-
-			if (jarDir != null && jarDir.isDirectory()) {
-				File propFile = new File(jarDir.getParent(), "init.properties");
-				prop = new Properties();
-				prop.load(new BufferedReader(new FileReader(propFile
-						.getAbsoluteFile())));
-			}
 			this.setUsuario(prop.getProperty("usuario"));
 			this.setContrasena(prop.getProperty("contrasena"));
-			this.setUrl(prop.getProperty("url"));			
-			
+			this.setUrl(prop.getProperty("url"));
+
 		} catch (URISyntaxException ex) {
 			ex.printStackTrace();
 			throw ex;
