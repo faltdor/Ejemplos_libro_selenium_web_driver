@@ -1,6 +1,5 @@
 package co.com.w.surveys;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
@@ -23,7 +22,7 @@ public class Encuestas {
 	private WebDriver driver;
 	@FindBy(how = How.CSS, css = "a[href*='survey=job']")
 	private WebElement iniciarEncuestaButton;
-
+	
 	public Encuestas(WebDriver driver) {
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
@@ -33,7 +32,7 @@ public class Encuestas {
 		this.iniciarEncuestaButton.click();
 	}
 
-	public void iniciarEncuesta(String codigoEncuesta) {
+	public void iniciarEncuesta(String codigoEncuesta) throws BiffException, IOException, URISyntaxException {
 		WebElement element = driver.findElement(By.name(codigoEncuesta));
 		element.click();
 
@@ -45,38 +44,29 @@ public class Encuestas {
 					}
 				});
 		pasarPreguntas.click();
-
+		
+		String[] respuestas = cargarRespuestasArchivo("Video"+codigoEncuesta.substring(1));
+		 
 		Pregunta pregunta = new Pregunta();
-		pregunta.responder(driver, "q1", "2");
-		pregunta.responder(driver, "q2", "2");
-		pregunta.responder(driver, "q3", "2");
-		pregunta.responder(driver, "q4", "2");
-		pregunta.responder(driver, "q5", "2");
-		pregunta.responder(driver, "q6", "2");
-		pregunta.responder(driver, "q7", "2");
-		pregunta.responder(driver, "q8", "2");
-		pregunta.responder(driver, "q9", "2");
-
-		pregunta.responder(driver, "q10", "2");
-		pregunta.responder(driver, "q11", "2");
-		pregunta.responder(driver, "q12", "3");
-		pregunta.responder(driver, "q13", "3");
-		pregunta.responder(driver, "q14", "1");
-
+		for (int i = 1; i <= 14; i++) {
+			pregunta.responder(driver, "q"+i, respuestas[i-1]);
+		}
 	}
 
-	public void cargarRespuestasArchivo() throws BiffException, IOException, URISyntaxException {
+	private String[] cargarRespuestasArchivo(String nombreHoja) throws BiffException, IOException, URISyntaxException {
 
 		Workbook workbook = null;
+		String[] respuestas = null; 
 		try {
 			workbook = Workbook.getWorkbook(Utilidades.obtenerArchivo("respuestas.xls"));																	// que vamos a leer
-			Sheet sheet = workbook.getSheet(0); // Seleccionamos la hoja que vamos a leer
-			String nombre;
-	
+			Sheet sheet = workbook.getSheet(nombreHoja); // Seleccionamos la hoja que vamos a leer
+			int index = 0;
+			respuestas = new String[sheet.getRows()]; 
 			for (int fila = 1; fila < sheet.getRows(); fila++) { // recorremos las filas
-					nombre = sheet.getCell(1, fila).getContents(); // setear la celda leida a nombre
-					System.out.print(nombre + " "); 
+					respuestas[index]= sheet.getCell(1, fila).getContents(); // setear la celda leida a nombre
+					index++;
 			}
+			System.out.println("Se recupera respuestas hoja" + nombreHoja);
 		} catch (BiffException e) {
 			e.printStackTrace();
 			throw e;
@@ -84,6 +74,7 @@ public class Encuestas {
 			e.printStackTrace();
 			throw e;
 		}
+		return respuestas;
 	}
 
 }

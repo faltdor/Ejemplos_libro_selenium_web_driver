@@ -23,8 +23,15 @@ public class IniciarEncuesta {
 
 		Encuestas encuestas = PageFactory.initElements(driver, Encuestas.class);
 		encuestas.verEncuestas();
+		esperar(5000);
+
 		try {
-			encuestas.cargarRespuestasArchivo();
+			for (int i = 1; i <= 5; i++) {
+				System.out.println("Inicio Encuesta o"+i);
+				encuestas.iniciarEncuesta("o"+i);
+				encuestas.verEncuestas();
+				esperar(5000);
+			}
 		} catch (BiffException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -32,22 +39,6 @@ public class IniciarEncuesta {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-//		esperar(5000);
-//
-//		encuestas.iniciarEncuesta("o1");
-//		encuestas.verEncuestas();
-//		esperar(5000);
-//		encuestas.iniciarEncuesta("o2");
-//		encuestas.verEncuestas();
-//		esperar(5000);
-//		encuestas.iniciarEncuesta("o3");
-//		encuestas.verEncuestas();
-//		esperar(5000);
-//		encuestas.iniciarEncuesta("o4");
-//		encuestas.verEncuestas();
-//		esperar(5000);
-//		encuestas.iniciarEncuesta("o5");
-//		encuestas.verEncuestas();
 	}
 
 	private static void esperar(long milis) {
@@ -58,6 +49,5 @@ public class IniciarEncuesta {
 			e.printStackTrace();
 		}
 	}
-	
 
 }
